@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<body>
+
+<div id="chart_div"></div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+// Load google charts
+google.load('visualization', '1.0', {
+
+    'packages': ['corechart']
+
+});
+
+
+
+google.setOnLoadCallback(drawSheetName);
+
+
+
+
+
+
+
+
+
+function drawSheetName() {
+
+
+
+      var query = new google.visualization.Query(	'https://docs.google.com/spreadsheets/d/1ctmyZcBr0XgjI_PTKjubI0mSk0cc1c15jR8YjJSZmvk/edit?usp=sharing&gid=274885624&headers=1&range=A1:GE27');
+
+
+
+			query.send(handleSampleDataQueryResponse);
+
+}
+
+
+
+function handleSampleDataQueryResponse(response) {
+
+      if (response.isError()) {
+
+        alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+
+        return;
+
+      }
+
+     	var options = {
+
+      	title: 'Worldwide Environmental Protection ',
+
+        subtitle: 'in millions of dollars (USD)',
+
+        width: 1200,
+
+        height: 1200,
+
+        //curveType: 'function',
+
+      hAxis: { 
+
+    		format:'####',
+
+     	 	title: 'Year',
+
+      	ticks: [1990, 1995, 2000, 2005,2010, 2015]
+
+   						 }, 
+
+   	 vAxis: {
+
+      	title: 'Protected Areas Percentage',
+
+      	ticks: [0, 4, 8, 12 ,16, 20]
+
+    },}
+
+      
+
+      var data = response.getDataTable();
+
+      var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+
+}
+</script>
+</body>
+</html>
+
+
